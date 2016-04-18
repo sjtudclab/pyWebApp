@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="tenantApp" style="height:100%;">
+<head>
+  <script src="../../js/jslib/angularlib/angular.js"></script>
+  <script src="../../js/jslib/ngDialog.js"></script>
+  <script src="../../js/jslib/ngStorage.js"></script>
+  <script src="../../js/tenantjs/tenantApp.js"></script>
+
+  <link href="../../css/tenantcss/tenantmain.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-controller="tenantMainCtrl">
+  <div class="headbar">
+    <img class="mainlogo" src="../../pics/whitemask.png" alt="" />
+    <span>How it works</span>
+    <span>About</span>
+    <span>DCLAB</span>
+    <span class='welword'>Welcome !</span>
+    <span class='statusbtn' ng-click='showuserinfo()'>{{userName}}</span>
+    <span class='statusonline'>online</span>
+  </div>
+
+  <div class="infobox" ng-show='showInfo'>
+    <div class="leftinfo">
+      <span class='infotitle'>{{userName}}'s information</span>
+      <span ng-hide='infoediting' class='infoedit' ng-click='infoedit()'>edit</span>
+      <span ng-show='infoediting' class='infoedit infocan' ng-click='editcan()'>cancel</span>
+      <span ng-show='infoediting' class='infoedit infosure' ng-click='editsure(newUserName)'>sure</span>
+      <div class="infodetail">
+        <div class='leftw'>Name:</div>
+        <div class='rightw' ng-hide='infoediting'>{{userName}}</div>
+        <input class='righti' ng-show='infoediting' ng-model='newUserName' placeholder="{{userName}}" type="text" >
+      </div>
+    </div>
+    <div class="rightinfo">
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+.ngdialog.tenantRegNg {
+  padding-bottom: 160px;
+  padding-top: 85px;
+}
+
+.ngdialog.tenantRegNg .ngdialog-content {
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  background: #FDFBFB;
+  border-radius: 5px;
+  color: #444;
+  font-family: 'Helvetica',sans-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 1em;
+  position: relative;
+  width: 557px;
+  height: 443px;
+}

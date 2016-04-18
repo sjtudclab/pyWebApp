@@ -1,0 +1,80 @@
+<html ng-app="tenantApp">
+
+<head>
+  <script src="../../js/jslib/angularlib/angular.js"></script>
+  <script src="../../js/jslib/ngDialog.js"></script>
+  <script src="../../js/jslib/ngStorage.js"></script>
+  <script src="../../js/tenantjs/tenantApp.js"></script>
+
+  <link href="../../css/tenantcss/tenantlogin.css" rel="stylesheet" type="text/css">
+  <link href="../../css/tenantcss/tenantRegNg.css" rel="stylesheet" type="text/css">
+  <link href="../../css/csslib/ngDialog.css" rel="stylesheet" >
+</head>
+
+<body ng-controller="tenantLoginCtrl">
+  <div class="headline">
+    <div class="lefttitle">
+      DCLAB
+    </div>
+    <div class="righttitle">
+      What We Do | ?
+    </div>
+  </div>
+  <div class="mainlogin">
+    <img class="logo" src="../../pics/whitemask.png" alt="" />
+    <div class="logtitle">
+      <span>
+        Sign in to Sys
+      </span>
+    </div>
+    <div class="loginbox">
+      <input class="accountbox" type="text" placeholder="Account" ng-model="tenant.account" value="">
+      <div>
+
+      </div>
+      <input class="passwordbox" type="password" placeholder="Password" ng-model="tenant.password" value="">
+      <img ng-hide="actLogin" class="signinbtn" src="../../pics/loginarrdark.png" alt="" />
+      <img ng-show="actLogin" style="cursor:pointer;" class="signinbtn" src="../../pics/loginarrblack.png" ng-click="login(tenant)" />
+
+    </div>
+
+    <div class="remlogin">
+      <input type="checkbox" name="name" value="">
+      <span>Keep me signed in</span>
+    </div>
+
+    <div class="straightline">
+    <hr ></hr>
+    </div>
+    <div class="regtitle">
+      <span ng-click="regTenant()">Don't have an account? Create yours now.</span>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="regtemplate">
+    <div class="regTop">
+      <img class="regLogo" src="../../pics/blackmask.png" alt="" />
+      <span class="regTitle">Create Your Account</span>
+    </div>
+    <div class="regInfo">
+      <span class="titleOne">Already have an account?</span>
+      <span class="titleTwo" ng-click="closeThisDialog()">Sign In&gt;</span>
+      <div class="regInputs">
+        <input type="text" placeholder="name@example.com" ng-model="reg.account" />
+        <span ng-show="actNotice" style='left:-151px;'> Account already exists. </span>
+        <input type="password" placeholder="password" ng-model="reg.password" />
+        <input type="password" style="margin-top: 8px;"placeholder="confirm password" ng-model="reg.secpas" />
+        <span ng-show="psdNotice"> Two passwords should be same. </span>
+        <input type="text" placeholder="name" ng-model="reg.name" />
+      </div>
+    </div>
+    <div class="regBtm">
+      <span class="regCancel" ng-click="closeThisDialog()">Cancel</span>
+      <span class="regLine"> &#124; </span>
+      <span class="regSure" ng-click="regWithInfo(reg)">Continue</span>
+    </div>
+  </script>
+
+</body>
+
+</html>
