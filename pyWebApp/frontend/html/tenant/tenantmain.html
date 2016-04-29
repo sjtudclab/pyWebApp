@@ -1,40 +1,229 @@
-<!doctype html>
-<html ng-app="tenantApp" style="height:100%;">
-<head>
-  <script src="../../js/jslib/angularlib/angular.js"></script>
-  <script src="../../js/jslib/ngDialog.js"></script>
-  <script src="../../js/jslib/ngStorage.js"></script>
-  <script src="../../js/tenantjs/tenantApp.js"></script>
+<!DOCTYPE html>
+<html ng-app="tenantApp" lang="en">
+<head id="th_head">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <script src="../../js/jslib/angularlib/angular.js"></script>
+    <script src="../../js/jslib/ngDialog.js"></script>
+    <script src="../../js/jslib/ngStorage.js"></script>
+    <script src="../../js/tenantjs/tenantApp.js"></script>
 
-  <link href="../../css/tenantcss/tenantmain.css" rel="stylesheet" type="text/css">
+    <script src="../../js/jslib/jquery-2.1.4.min.js"></script>
+    <script src="../../js/jslib/bootstrap-3.3.6.min.js"></script>
+    <link href="../../css/csslib/bootstrap-3.3.6.min.css" rel="stylesheet"/>
+    <title></title>
+    <link href="../../css/csslib/home.css" rel="stylesheet">
+    <link href="../../css/tenantcss/tenantmain.css" rel="stylesheet">
+    <link href="../../css/csslib/ngDialog.css" rel="stylesheet" >
+    <!-- 其他script或style请写在body最后面 -->
 </head>
 <body ng-controller="tenantMainCtrl">
-  <div class="headbar">
-    <img class="mainlogo" src="../../pics/whitemask.png" alt="" />
-    <span>How it works</span>
-    <span>About</span>
-    <span>DCLAB</span>
-    <span class='welword'>Welcome !</span>
-    <span class='statusbtn' ng-click='showuserinfo()'>{{userName}}</span>
-    <span class='statusonline'>online</span>
-  </div>
-
-  <div class="infobox" ng-show='showInfo'>
-    <div class="leftinfo">
-      <span class='infotitle'>{{userName}}'s information</span>
-      <span ng-hide='infoediting' class='infoedit' ng-click='infoedit()'>edit</span>
-      <span ng-show='infoediting' class='infoedit infocan' ng-click='editcan()'>cancel</span>
-      <span ng-show='infoediting' class='infoedit infosure' ng-click='editsure(newUserName)'>sure</span>
-      <div class="infodetail">
-        <div class='leftw'>Name:</div>
-        <div class='rightw' ng-hide='infoediting'>{{userName}}</div>
-        <input class='righti' ng-show='infoediting' ng-model='newUserName' placeholder="{{userName}}" type="text" >
-      </div>
+<!-- NAVIGATION -->
+<nav id="th_navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">租户数据库系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html" >首页</a></li>
+                <li><a href="#">登出</a></li>
+                <li><a href="#">设置</a></li>
+                <li><a href="#">信息</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
-    <div class="rightinfo">
+</nav>
 
-    </div>
-  </div>
+<!-- CONTENT -->
+<div id="th_content" class="container-fluid">
+    <div class="row">
+        <!--SIDE_BAR-->
+        <div id="th_sidebar" class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(1)'><a href="">查看数据库权限</a></h4></li>
+                <!--<li><a href="#" >其他<span class="sr-only">(current)</span></a></li>-->
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(2)'><a href="">申请数据库</a></h4></li>
+            </ul>
 
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header"><a href="">数据库</a></h4></li>
+                <li><a href="#">数据库1</a></li>
+                <li><a href="#">数据库2</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header"><a href="#">选中数据库</a></h4></li>
+                <li><a href="#">表1</a></li>
+                <li><a href="#">表2</a></li>
+                <li><a href="#">表3</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header"><a href="#">查看Restful API</a></h4></li>
+                <li><a href="#">GET</a></li>
+                <li><a href="#">POST</a></li>
+                <li><a href="#">PUT</a></li>
+                <li><a href="#">DELETE</a></li>
+                <li><a href="#">FILE</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header"><a href="#">系统介绍</a></h4></li>
+            </ul>
+
+        </div>
+
+        <!--CONTENT_CONTAINER-->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!-- BEGIN************************请在此处添加内容************************ -->
+          <div ng-show='checkAuth' >
+            <div class="userInfo">
+              <span class='userTitle'>租户信息</span>
+              <hr>
+              <table>
+                <tr>
+                  <td class='letd'>
+                    租户名称
+                  </td>
+                  <td class='ritd'>
+                    {{userName}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class='letd'>
+                    容量权限
+                  </td>
+                  <td class='ritd'>
+                    5GB
+                  </td>
+                </tr>
+                <tr>
+                  <td class='letd'>
+                    注册时间
+                  </td>
+                  <td class='ritd'>
+                    2015-7-19
+                  </td>
+                </tr>
+                <tr>
+                  <td class='letd'>
+                    到期时间
+                  </td>
+                  <td class='ritd'>
+                    2027-8-19
+                  </td>
+                </tr>
+              </table>
+              <span class='userTitle'>数据库信息</span>
+              <hr>
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">数据库内容信息权限查看</div>
+                <div class="panel-body">
+                  <p>以下为租户所拥有的各数据库设置</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table" style="width:100%; margin-left:0px;">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>名称</th>
+                      <th>容量</th>
+                      <th>申请时间</th>
+                      <th>到期时间</th>
+                      <th>隔离策略</th>
+                      <th>状态</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>pyweb</td>
+                      <td>2G</td>
+                      <td>2013-6-2</td>
+                      <td>2017-2-1</td>
+                      <td>独立数据库</td>
+                      <td class='normalDbStatus'>正常使用</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>books</td>
+                      <td>1G</td>
+                      <td>2015-2-1</td>
+                      <td>2020-1-2</td>
+                      <td>共享数据库独立表</td>
+                      <td class='normalDbStatus'>正常使用</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>cars</td>
+                      <td>5G</td>
+                      <td>2016-3-21</td>
+                      <td>待定</td>
+                      <td>独立数据库</td>
+                      <td class='undDbStatus'>申请中</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div ng-show='regDatabase'>
+            <div class="userInfo">
+              <span class='userTitle'>申请数据库</span>
+              <hr>
+              <div class="inputs">
+                <div class="input-group theinput">
+                  <span class="input-group-addon titlelen" id="basic-addon1">数据库名称</span>
+                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group theinput">
+                  <span class="input-group-addon titlelen" id="basic-addon1">容量需求</span>
+                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group theinput">
+                  <span class="input-group-addon titlelen" id="basic-addon1">使用时长</span>
+                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group theinput">
+                  <span class="input-group-addon titlelen" id="basic-addon1">数据隔离模式</span>
+                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                </div>
+
+                <button type="button" class="btn btn-success applybtn">确认</button>
+              </div>
+            </div>
+
+          </div>
+
+
+
+            <!--<h2 class="sub-header">二级模块</h2>-->
+        <!-- END************************请在此处添加内容************************ -->
+        </div><!-- content_container -->
+
+
+    </div><!--row-->
+</div><!-- /.container -->
+
+<!-- FOOTER -->
+<div></div>
+<!-- EXTRA_SCRIPT -->
+<script></script>
+<!-- EXTRA_STYLE -->
+<style></style>
 </body>
 </html>

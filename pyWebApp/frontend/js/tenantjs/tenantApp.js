@@ -95,50 +95,75 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
   $scope.actNotice = false;
 });
 
-
 tenantApp.controller('tenantMainCtrl', function($scope, $http, $sessionStorage) {
 
-  $scope.showuserinfo = function() {
-    $scope.showInfo = true;
+  $scope.showModel = function(tab) {
+    switch (tab) {
+      case 1:
+        $scope.checkAuth = true;
+        $scope.regDatabase = false;
+        break;
+      case 2:
+        $scope.checkAuth = false;
+        $scope.regDatabase = true;
+        break;
+      default:
+
+    }
   };
 
-  $scope.infoedit = function () {
-    $scope.infoediting = !$scope.infoediting;
-  };
-
-  $scope.editcan = function() {
-    $scope.infoediting = false;
-  };
-
-  $scope.editsure = function(newUserName) {
-    $scope.infoediting = false;
-    console.log(newUserName);
-    var req = {
-      method: 'POST',
-      url: 'http://127.0.0.1:8080/pyWebApp/tenantEdit',
-      data: {
-        account : $scope.account,
-        password : $scope.password,
-        name : newUserName
-      },
-      headers: {
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    };
-    $http(req).success(function(data, status, headers, config){
-      if (data.msg == "success") {
-        console.log('edit success');
-        $scope.userName = newUserName;
-        $sessionStorage.userName = newUserName;
-      }
-    }).error(function(data, status, headers, config){
-      console.log(status);
-    });
-  };
+  $scope.checkAuth = true;
+  $scope.regDatabase = false;
 
   $scope.userName = $sessionStorage.name;
   $scope.account = $sessionStorage.account;
   $scope.password = $sessionStorage.password;
-  $scope.showInfo = false;
-  $scope.infoediting = false;
+
 });
+
+// tenantApp.controller('tenantMainCtrl', function($scope, $http, $sessionStorage) {
+//
+//   $scope.showuserinfo = function() {
+//     $scope.showInfo = true;
+//   };
+//
+//   $scope.infoedit = function () {
+//     $scope.infoediting = !$scope.infoediting;
+//   };
+//
+//   $scope.editcan = function() {
+//     $scope.infoediting = false;
+//   };
+//
+//   $scope.editsure = function(newUserName) {
+//     $scope.infoediting = false;
+//     console.log(newUserName);
+//     var req = {
+//       method: 'POST',
+//       url: 'http://127.0.0.1:8080/pyWebApp/tenantEdit',
+//       data: {
+//         account : $scope.account,
+//         password : $scope.password,
+//         name : newUserName
+//       },
+//       headers: {
+//         'Content-Type' : 'application/x-www-form-urlencoded'
+//       }
+//     };
+//     $http(req).success(function(data, status, headers, config){
+//       if (data.msg == "success") {
+//         console.log('edit success');
+//         $scope.userName = newUserName;
+//         $sessionStorage.userName = newUserName;
+//       }
+//     }).error(function(data, status, headers, config){
+//       console.log(status);
+//     });
+//   };
+//
+//   $scope.userName = $sessionStorage.name;
+//   $scope.account = $sessionStorage.account;
+//   $scope.password = $sessionStorage.password;
+//   $scope.showInfo = false;
+//   $scope.infoediting = false;
+// });

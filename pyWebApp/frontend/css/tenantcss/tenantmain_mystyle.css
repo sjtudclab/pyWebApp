@@ -1,0 +1,142 @@
+body {
+  background-image: url('../../pics/mainback.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+.headbar {
+  height: 69px;
+  color: white;
+  font-size: 24px;
+  font-weight: lighter;
+  font-family: fantasy;
+}
+
+.headbar .mainlogo {
+  width: 45px;
+  position: relative;
+  left: 39px;
+  top: 4px;
+}
+
+.headbar span {
+  margin-left: 50px;
+  position: relative;
+  top: -11px;
+  left: 22px;
+}
+
+.headbar .welword {
+  position: fixed;
+  float: right;
+  top: 21px;
+  left: 916px;
+}
+
+.headbar .statusbtn {
+  position: fixed;
+  top: 12px;
+  left: 1067px;
+  background-color: #747C9A;
+  width: 22px;
+  font-size: 17px;
+  padding: 14px;
+  font-family: initial;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  cursor: pointer;
+}
+
+.headbar .statusonline {
+  position: fixed;
+  top: 12px;
+  left: 1117px;
+  background-color: #0FC315;
+  width: 42px;
+  font-size: 17px;
+  padding: 14px;
+  font-family: initial;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  cursor: pointer;
+}
+
+.infobox {
+  height: 80%;
+  margin-top: 44px;
+}
+
+.infobox .leftinfo {
+  display: inline-block;
+  width: 23%;
+  background: #FDFDFD;
+  height: 315px;
+  margin-left: 26px;
+  box-shadow: 1px 0px 29px 1px #797979;
+  border-radius: 4px;
+}
+
+.infobox .leftinfo .infotitle {
+  color: white;
+  font-size: 14px;
+  background: #1862D2;
+  padding: 3px;
+  padding-top: 1px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.infobox .leftinfo .infoedit {
+  color: #1862D2;
+  position: relative;
+  float: right;
+  right: 0px;
+  font-size: 14px;
+  padding: 3px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background: #F6F93D;
+  cursor: pointer;
+  padding-top: 1px;
+}
+
+.infobox .leftinfo .infocan {
+  background-color: #FF5B5B;
+  color: white;
+  border-bottom-left-radius: 0px;
+}
+
+.infobox .leftinfo .infosure {
+  background-color: #238DFB;
+  color: white;
+  border-top-right-radius: 0px;
+}
+
+.infobox .leftinfo .infodetail {
+  margin-top: 25px;
+  margin-left: 22px;
+}
+
+.infobox .leftinfo .infodetail div {
+  display: inline-block;
+}
+
+.infobox .leftinfo .infodetail .leftw {
+  width: 24%;
+  text-align: end;
+}
+
+.infobox .leftinfo .infodetail .rightw {
+  width: 50%;
+  padding-left: 13px;
+}
+
+.infobox .leftinfo .infodetail .righti {
+
+}
+
+.infobox .rightinfo {
+  display: inline-block;
+  width: 63%;
+}
