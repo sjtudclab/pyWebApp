@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="tenantApp" lang="en">
+<head id="th_head">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <script src="../../js/jslib/angularlib/angular.js"></script>
+    <script src="../../js/jslib/ngDialog.js"></script>
+    <script src="../../js/jslib/ngStorage.js"></script>
+    <script src="../../js/tenantjs/tenantApp.js"></script>
+
+    <script src="../../js/jslib/jquery-2.1.4.min.js"></script>
+    <script src="../../js/jslib/bootstrap-3.3.6.min.js"></script>
+    <link href="../../css/csslib/bootstrap-3.3.6.min.css" rel="stylesheet"/>
+    <title></title>
+    <link href="../../css/csslib/home.css" rel="stylesheet">
+    <link href="../../css/tenantcss/tenantlogin.css" rel="stylesheet">
+    <link href="../../css/csslib/ngDialog.css" rel="stylesheet" >
+    <!-- 其他script或style请写在body最后面 -->
+</head>
+<body ng-controller="tenantLoginCtrl">
+<!-- NAVIGATION -->
+<nav id="th_navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">租户数据库系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a href="" >首页</a></li>
+                <li><a href="">设置</a></li>
+                <li><a href="">信息</a></li>
+                <li><a href="">帮助</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="container">
+    <section ng-hide='registing' class="loginBox row-fluid">
+      <section class="span7 left">
+        <h2>商户登录</h2>
+        <p><input type="text" name="username" ng-model='tenant.account' placeholder="用户名"/></p>
+        <p><input type="text" name="password" ng-model='tenant.password' placeholder="密码"/></p>
+        <section class="row-fluid">
+          <section class="span8 lh30"><label><input type="checkbox" name="rememberme" />下次自动登录</label></section>
+      <section class="span1"><input type="button" value=" 登录 " class="btn btn-primary" ng-click='goLogin(tenant)'></section>
+        </section>
+      </section>
+      <section class="span5 right">
+        <h2>没有帐户？</h2>
+        <section>
+          <p>点击注册进行注册。</p>
+
+          <p><input type="button" value=" 注册 " class="btn regBtn" ng-click='goRegPage()'></p>
+        </section>
+      </section>
+    </section><!-- /loginBox -->
+    <div ng-show='registing' class='regTemp'>
+      <div class="regTop">
+        <img class="regLogo" src="../../pics/blackmask.png" alt="" />
+        <span class="regTitle">Create Your Account</span>
+      </div>
+      <div class="regInfo">
+        <span class="titleOne">Already have an account?</span>
+        <span class="titleTwo" ng-click="quitReg()">Sign In&gt;</span>
+        <div class="regInputs">
+          <input type="text" placeholder="name@example.com" ng-model="reg.account" />
+          <span ng-show="actNotice" style='left:-151px;'> Account already exists. </span>
+          <input type="password" placeholder="password" ng-model="reg.password" />
+          <input type="password" style="margin-top: 8px;"placeholder="confirm password" ng-model="reg.secpas" />
+          <span ng-show="psdNotice"> Two passwords should be same. </span>
+          <input type="text" placeholder="name" ng-model="reg.name" />
+        </div>
+      </div>
+      <div class="regBtm">
+        <span class="regCancel" ng-click="quitReg()">Cancel</span>
+        <span class="regLine"> &#124; </span>
+        <span class="regSure" ng-click="regWithInfo(reg)">Continue</span>
+      </div>
+    </div>
+</div> <!-- /container -->
+<!-- FOOTER -->
+<div></div>
+<!-- EXTRA_SCRIPT -->
+<script></script>
+<!-- EXTRA_STYLE -->
+<style></style>
+</body>
+</html>

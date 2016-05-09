@@ -1,8 +1,8 @@
-var tenantApp = angular.module("tenantLogin", ['ngDialog', 'ngStorage']);
+var tenantApp = angular.module("tenantLoginApp", ['ngDialog', 'ngStorage']);
 
 tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $sessionStorage, $window, $http, ngDialog) {
 
-  $scope.goLogin = function(tenant) {
+  $scope.login = function(tenant) {
     var req = {
 			method: 'POST',
 			url: 'http://127.0.0.1:8080/pyWebApp/tenantLog',
@@ -19,7 +19,6 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
         console.log('login success');
         $sessionStorage.account = tenant.account;
         $sessionStorage.password = tenant.password;
-        $sessionStorage.name = data.name;
         $window.location.href = '../../html/tenant/tenantmain.html?' + 'account=' + tenant.account;
 			} else if (data.msg == "wrong") {
         console.log('wrong password');
@@ -28,6 +27,18 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
 		}).error(function(data, status, headers, config){
       console.log(status);
 		});
+  };
+
+  $scope.regTenant = function() {
+    ngDialog.open({
+			template: 'regtemplate',
+      controller: ('tenantLoginCtrl', {
+        $scope: $scope
+      }),
+      className: 'tenantRegNg',
+      scope: $scope,
+			showClose: false
+    });
   };
 
   $scope.regWithInfo = function(reg) {
@@ -51,12 +62,12 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
       $http(req).success(function(data, status, headers, config){
         if (data.msg == "success") {
           console.log('reg success');
-          $scope.registing = false;
+          $scope.actNotice = false;
           $scope.tenant.account = reg.account;
           $scope.tenant.password = reg.password;
-
+          ngDialog.close();
         } else if (data.msg == "account exists") {
-
+          $scope.actNotice = true;
         }
       }).error(function(data, status, headers, config){
         console.log(status);
@@ -65,20 +76,16 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
     }
   };
 
-  $scope.goRegPage = function() {
-    $scope.registing = true;
-  };
-
-  $scope.quitReg = function() {
-    $scope.registing = false;
-  };
-
   $scope.tenant = {account: '', password: ''};
   $scope.reg = {account: '', password: '', secpas: '', name: ''};
 
   $scope.actLogin = false;
   $scope.actNotice = false;
+});
 
-  $scope.registing = false;
+
+tenantApp.controller('tenantMainCtrl', function($scope) {
+
+
 
 });

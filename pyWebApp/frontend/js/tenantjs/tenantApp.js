@@ -2,7 +2,7 @@ var tenantApp = angular.module("tenantApp", ['ngDialog', 'ngStorage']);
 
 tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $sessionStorage, $window, $http, ngDialog) {
 
-  $scope.login = function(tenant) {
+  $scope.goLogin = function(tenant) {
     var req = {
 			method: 'POST',
 			url: 'http://127.0.0.1:8080/pyWebApp/tenantLog',
@@ -20,7 +20,7 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
         $sessionStorage.account = tenant.account;
         $sessionStorage.password = tenant.password;
         $sessionStorage.name = data.name;
-        $window.location.href = '../../html/tenant/tenantmain.html';
+        $window.location.href = '../../html/tenant/tenantmain.html?' + 'account=' + tenant.account;
 			} else if (data.msg == "wrong") {
         console.log('wrong password');
         tenant.password = '';
@@ -28,18 +28,6 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
 		}).error(function(data, status, headers, config){
       console.log(status);
 		});
-  };
-
-  $scope.regTenant = function() {
-    ngDialog.open({
-			template: 'regtemplate',
-      controller: ('tenantLoginCtrl', {
-        $scope: $scope
-      }),
-      className: 'tenantRegNg',
-      scope: $scope,
-			showClose: false
-    });
   };
 
   $scope.regWithInfo = function(reg) {
@@ -63,12 +51,12 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
       $http(req).success(function(data, status, headers, config){
         if (data.msg == "success") {
           console.log('reg success');
-          $scope.actNotice = false;
+          $scope.registing = false;
           $scope.tenant.account = reg.account;
           $scope.tenant.password = reg.password;
-          ngDialog.close();
+
         } else if (data.msg == "account exists") {
-          $scope.actNotice = true;
+
         }
       }).error(function(data, status, headers, config){
         console.log(status);
@@ -77,22 +65,21 @@ tenantApp.controller('tenantLoginCtrl', function($scope, $localStorage, $session
     }
   };
 
-  function detectLogin() {
-    if ($scope.tenant.account != '' && $scope.tenant.password != '') {
-      $scope.actLogin = true;
-    } else {
-      $scope.actLogin = false;
-    }
-  }
+  $scope.goRegPage = function() {
+    $scope.registing = true;
+  };
+
+  $scope.quitReg = function() {
+    $scope.registing = false;
+  };
 
   $scope.tenant = {account: '', password: ''};
   $scope.reg = {account: '', password: '', secpas: '', name: ''};
 
-  $scope.$watch('tenant.account', detectLogin);
-  $scope.$watch('tenant.password', detectLogin);
-
   $scope.actLogin = false;
   $scope.actNotice = false;
+
+  $scope.registing = false;
 });
 
 tenantApp.controller('tenantMainCtrl', function($scope, $http, $sessionStorage) {
@@ -100,20 +87,61 @@ tenantApp.controller('tenantMainCtrl', function($scope, $http, $sessionStorage) 
   $scope.showModel = function(tab) {
     switch (tab) {
       case 1:
+        $scope.spyDatabase = false;
+        $scope.infoChange = false;
         $scope.checkAuth = true;
         $scope.regDatabase = false;
         break;
       case 2:
+        $scope.spyDatabase = false;
+        $scope.infoChange = false;
         $scope.checkAuth = false;
         $scope.regDatabase = true;
+        break;
+      case 3:
+        $scope.spyDatabase = false;
+        $scope.infoChange = true;
+        $scope.checkAuth = false;
+        $scope.regDatabase = false;
+        break;
+      case 4:
+        $scope.spyDatabase = true;
+        $scope.infoChange = false;
+        $scope.checkAuth = false;
+        $scope.regDatabase = false;
+      default:
+
+    }
+  };
+
+  $scope.treeStatusChange = function(sat) {
+    switch (sat) {
+      case 1:
+        $scope.showDbs = !$scope.showDbs;
+        break;
+      case 2:
+        $scope.showCols = !$scope.showCols;
+        break;
+      case 3:
+        $scope.showApis = !$scope.showApis;
         break;
       default:
 
     }
   };
 
+  $scope.regSchema = function() {
+
+  };
+
   $scope.checkAuth = true;
   $scope.regDatabase = false;
+  $scope.infoChange = false;
+  $scope.spyDatabase = false;
+
+  $scope.showApis = false;
+  $scope.showDbs = false;
+  $scope.showCols = false;
 
   $scope.userName = $sessionStorage.name;
   $scope.account = $sessionStorage.account;

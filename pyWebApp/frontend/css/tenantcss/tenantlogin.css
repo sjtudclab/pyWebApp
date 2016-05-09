@@ -1,130 +1,72 @@
+*{margin:0;padding: 0;}
 body {
-  background-image: url('../../pics/background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family:"宋体";
+  background-color: #FBFBFB;
+}
+.loginBox {
+  width:420px;
+  height:230px;
+  padding:0 20px;
+  border:1px solid #fff;
+  color:#000;
+  margin-top:40px;
+  border-radius:8px;
+  background: white;
+  box-shadow:0 0 15px #222;
+  background: -moz-linear-gradient(top, #fff, #efefef 8%);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));
+  font:11px/1.5em 'Microsoft YaHei' ;
+  position: absolute;left:50%;
+  top:50%;margin-left:-210px;
+  margin-top:-115px;
 }
 
-.headline {
-  height: 31px;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 21px;
-  font-family: sans-serif;
+.loginBox h2 {
+  height:45px;
+  font-size:20px;
+  font-weight:normal;
+}
+.loginBox .left {
+  border-right:1px solid #ccc;
+  height:100%;
+  padding-right: 20px;
+  width: 181px;
+  display: inline-block;
 }
 
-.headline .lefttitle {
-  float: left;
+.loginBox .right {
+  width: 164px;
+  margin-left: 28px;
+  display: inline-block;
 }
 
-.headline .righttitle {
-  float: right;
+.regBtn {
+  margin-top:21px;
 }
 
-.mainlogin {
-  text-align: center;
-}
-
-.mainlogin .logo {
-  height: 162px;
-  padding-top: 13px;
-}
-
-.mainlogin .logtitle {
-  color: white;
-  font-size: 36px;
-  font-family: fantasy;
-  margin-top: -6px;
-}
-
-.mainlogin .logtitle span {
-
-}
-
-.mainlogin .loginbox {
-  margin-top: 28px;
-}
-
-.mainlogin .loginbox span {
-  color: #fff;
+.regTemp {
+  box-shadow: 2px 41px 8px 3px #ADA2A2;
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  background: #FDFBFB;
+  border-radius: 5px;
+  color: #444;
+  font-family: 'Helvetica',sans-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 1em;
   position: relative;
-  margin-left: -34px;
-  padding-left: 43px;
-  font-size: 18px;
-}
-
-.mainlogin .loginbox .accountbox {
-  height: 49px;
-  width: 335px;
-  font-size: 21px;
-  padding-left: 9px;
-  font-family: serif;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: #DDE7E9;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  box-shadow: 1px 0px 29px 1px #ECECEC;
-  outline: none;
-}
-
-.mainlogin .loginbox .passwordbox {
-  height: 49px;
-  width: 335px;
-  font-size: 21px;
-  padding-left: 9px;
-  font-family: serif;
-  margin-top: -1px;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  background-color: #DDE7E9;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 0px;
-  box-shadow: 1px 0px 29px 1px #ECECEC;
-  outline: none;
-}
-
-.mainlogin .loginbox .signinbtn {
-  margin-left: -40px;
-  padding-right: 10px;
-  position: relative;
-  top: 5px;
-}
-
-.mainlogin .remlogin {
-  margin-top: 20px;
-  height: 30px;
-}
-
-.mainlogin .remlogin input {
-  margin-right: 17px;
-}
-
-.mainlogin .remlogin span {
-  color:#F3ECEC;
-  font-family: sans-serif;
-}
-
-.mainlogin .straightline {
-  margin-top: 11px;
-}
-
-.mainlogin .straightline hr {
-  width: 329px;
-}
-
-.mainlogin .regtitle {
-  margin-top: 18px;
-  cursor: pointer;
-  color: #F3ECEC;
+  width: 557px;
+  height: 443px;
 }
 
 .regTop {
   background: #ECEAEA;
   margin-left: -18px;
   margin-right: -18px;
-  margin-top: -18px;
+  margin-top: 11px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   height: 93px;
