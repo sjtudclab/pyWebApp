@@ -12,12 +12,19 @@
 
     <script src="../../js/jslib/jquery-2.1.4.min.js"></script>
     <script src="../../js/jslib/bootstrap-3.3.6.min.js"></script>
+    <script src="../../js/jslib/bootstrap-datetimepicker.js"></script>
+
     <link href="../../css/csslib/bootstrap-3.3.6.min.css" rel="stylesheet"/>
-    <title></title>
+    <link href="../../css/csslib/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+
     <link href="../../css/csslib/home.css" rel="stylesheet">
     <link href="../../css/tenantcss/tenantmain.css" rel="stylesheet">
     <link href="../../css/csslib/ngDialog.css" rel="stylesheet" >
     <!-- 其他script或style请写在body最后面 -->
+
+
+    <title></title>
 </head>
 <body ng-controller="tenantMainCtrl">
 <!-- NAVIGATION -->
@@ -35,7 +42,6 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="" >首页</a></li>
                 <li><a href="">登出</a></li>
                 <li><a href="">设置</a></li>
                 <li><a href="">信息</a></li>
@@ -66,29 +72,6 @@
                 <li><h4 class="sub-header" ng-click='showModel(4)'><a href="">数据库监控</a></h4></li>
             </ul>
 
-            <ul class="nav nav-sidebar">
-                <li><h4 class="sub-header"><a href=""  ng-click='treeStatusChange(1)'>数据库</a></h4></li>
-                <li ng-show='showDbs'><a href="#">数据库1</a></li>
-                <li ng-show='showDbs'><a href="#">数据库2</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><h4 class="sub-header"><a href="" ng-click='treeStatusChange(2)'>选中数据库</a></h4></li>
-                <li ng-show='showCols'><a href="#">表1</a></li>
-                <li ng-show='showCols'><a href="#">表2</a></li>
-                <li ng-show='showCols'><a href="#">表3</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><h4 class="sub-header"><a href="" ng-click='treeStatusChange(3)'>查看Restful API</a></h4></li>
-                <li ng-show='showApis'><a href="#">GET</a></li>
-                <li ng-show='showApis'><a href="#">POST</a></li>
-                <li ng-show='showApis'><a href="#">PUT</a></li>
-                <li ng-show='showApis'><a href="#">DELETE</a></li>
-                <li ng-show='showApis'><a href="#">FILE</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><h4 class="sub-header"><a href="#">系统介绍</a></h4></li>
-            </ul>
-
         </div>
 
         <!--CONTENT_CONTAINER-->
@@ -112,7 +95,7 @@
                     容量权限
                   </td>
                   <td class='ritd'>
-                    5GB
+                    {{tenantcap}}GB
                   </td>
                 </tr>
                 <tr>
@@ -121,14 +104,6 @@
                   </td>
                   <td class='ritd'>
                     2015-7-19
-                  </td>
-                </tr>
-                <tr>
-                  <td class='letd'>
-                    到期时间
-                  </td>
-                  <td class='ritd'>
-                    2027-8-19
                   </td>
                 </tr>
               </table>
@@ -155,38 +130,154 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>pyweb</td>
-                      <td>2G</td>
-                      <td>2013-6-2</td>
-                      <td>2017-2-1</td>
-                      <td>独立数据库</td>
-                      <td class='normalDbStatus'>正常使用</td>
+
+                    <tr ng-repeat='sche in schemas'>
+                      <th scope="row">{{sche.k}}</th>
+                      <td class='tenantname' ng-click='digSchema(sche.name, sche.isolation)'>{{sche.name}}</td>
+                      <td>{{sche.capacity}}GB</td>
+                      <td>{{sche.regtime}}</td>
+                      <td>{{sche.endtime}}</td>
+                      <td>{{sche.isolation}}</td>
+                      <td class='normalDbStatus'>{{sche.sta}}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>books</td>
-                      <td>1G</td>
-                      <td>2015-2-1</td>
-                      <td>2020-1-2</td>
-                      <td>共享数据库独立表</td>
-                      <td class='normalDbStatus'>正常使用</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>cars</td>
-                      <td>5G</td>
-                      <td>2016-3-21</td>
-                      <td>待定</td>
-                      <td>独立数据库</td>
-                      <td class='undDbStatus'>申请中</td>
-                    </tr>
+
                   </tbody>
                 </table>
               </div>
 
             </div>
+          </div>
+
+          <div ng-show='showOneSchmaInfo' class='userInfo'>
+            <span class='userTitle'>数据库{{theSchemaName}}</span>
+            <hr>
+
+            <table>
+              <tr>
+                <td class='letd'>
+                  数据库名称
+                </td>
+                <td class='ritd'>
+                  {{theSchemaName}}
+                </td>
+              </tr>
+              <tr>
+                <td class='letd'>
+                  数据库类型
+                </td>
+                <td class='ritd'>
+                  {{theSchemaIso}}
+                </td>
+              </tr>
+            </table>
+
+            <span class='userTitle'>使用方式</span>
+            <hr>
+
+            <div ng-show='dd'>
+              <table>
+                <tr>
+                  <td class='letd'>
+                    数据库地址
+                  </td>
+                  <td class='ritd'>
+                    223.12.3.2
+                  </td>
+                </tr>
+                <tr>
+                  <td class='letd'>
+                    账号
+                  </td>
+                  <td class='ritd'>
+                    {{tenantId}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class='letd'>
+                    密码
+                  </td>
+                  <td class='ritd'>
+                    gggttteeee
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+
+            <div ng-show='ii'>
+              <span class='restintr'>
+              Restful API是提供给租户自己编写的程序所要使用的对数据库进行请求操作的URL，让租户能不仅在网页，也可以在自己的程序中便捷的使用编辑系统数据库。
+每一个租户都有一个在系统内属于自己的id与数据隔离类别
+              </span>
+              <div class="restkind">
+                A.	GET
+              </div>
+              <div class="restinfo">
+
+
+通过指定ID或其他column值获取对应的数据项
+格式：http://localhost:8080/”数据隔离类别”/“租户ID”/Schema/table/”Column”/….
+例如：http://localhost:8080/ind/u87892923/SC1/user/id/17
+ind：独立数据库
+uind: 共享数据库独立表
+uu:共享数据库共享表
+</div>
+<div class="restkind">
+
+
+B.	PUT
+</div>
+<div class="restinfo">
+
+
+根据指定id或其他column值修改对应的数据项
+例如：http://localhost:8080/ind/u87892923/SC1/user/id/17
+</div>
+<div class="restkind">
+
+
+C.	DELETE
+</div>
+<div class="restinfo">
+
+
+利用PUT将某个数据项全部改为空极为DELETE
+</div>
+<div class="restkind">
+
+
+D.	POST
+</div>
+<div class="restinfo">
+
+
+往表里添加数据项
+例如：http://localhost:8080/ind/u87892923/SC1/user
+</div>
+<div class="restkind">
+
+
+
+E.	资源管理
+</div>
+<div class="restinfo">
+
+
+每个资源可以关联一个文件，并且以JSON格式在程序中绑定传入数据库
+</div>
+<div class="restkind">
+
+
+F.	导出文件
+</div>
+<div class="restinfo">
+
+
+可以导出根据指定数据项获得与其绑定的文件
+</div>
+
+            </div>
+
           </div>
 
           <div ng-show='regDatabase'>
@@ -195,23 +286,28 @@
               <hr>
               <div class="inputs">
                 <div class="input-group theinput">
-                  <span class="input-group-addon titlelen" id="basic-addon1">数据库名称</span>
-                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                  <span class="input-group-addon titlelen">数据库名称</span>
+                  <input type="text" ng-model='tarsc.name' class="form-control inputlen">
                 </div>
                 <div class="input-group theinput">
-                  <span class="input-group-addon titlelen" id="basic-addon1">容量需求</span>
-                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                  <span class="input-group-addon titlelen">容量需求/GB</span>
+                  <input type="number" ng-model='tarsc.cap' class="form-control inputlen">
                 </div>
                 <div class="input-group theinput">
-                  <span class="input-group-addon titlelen" id="basic-addon1">使用时长</span>
-                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group theinput">
-                  <span class="input-group-addon titlelen" id="basic-addon1">数据隔离模式</span>
-                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
+                  <span class="input-group-addon titlelen">到期时间</span>
+                  <input ng-model='tarsc.lifetime' type="text" style='background-color:white;' id='regDbTime' readonly class="form_datetime form-control inputlen">
                 </div>
 
-                <button type="button" class="btn btn-success applybtn" ng-click='regSchema()'>确认</button>
+                <div class="input-group theinput">
+                  <span class="input-group-addon titlelen">数据隔离模式</span>
+                  <select ng-model='tarsc.isolation' class="form-control inputlen" >
+                    <option value='1'>独立数据库</option>
+                    <option value='2'>共享数据库独立表</option>
+                    <option value='3'>共享数据库共享表</option>
+                  </select>
+                </div>
+
+                <button type="button" class="btn btn-success applybtn" ng-click='regSchema(tarsc)'>确认</button>
               </div>
             </div>
 
@@ -224,10 +320,6 @@
               <div class="inputs">
                 <div class="input-group theinput">
                   <span class="input-group-addon titlelen" id="basic-addon1">名字</span>
-                  <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group theinput">
-                  <span class="input-group-addon titlelen" id="basic-addon1">到期时间</span>
                   <input type="text" class="form-control inputlen" aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group theinput">
@@ -258,36 +350,22 @@
                       <th>#</th>
                       <th>名称</th>
                       <th>容量</th>
-                      <th>使用率</th>
+                      <th>已使用</th>
                       <th>隔离策略</th>
                       <th>状态</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>pyweb</td>
-                      <td>2G</td>
-                      <td>56.3%</td>
-                      <td>独立数据库</td>
-                      <td class='normalDbStatus'>正常使用</td>
+
+                    <tr ng-repeat='item in moschemas'>
+                      <th scope="row">{{item.k}}</th>
+                      <td>{{item.name}}</td>
+                      <td>{{item.capacity}}G</td>
+                      <td>{{item.usedcap}}G</td>
+                      <td>{{item.isolation}}</td>
+                      <td class='normalDbStatus'>{{item.sta}}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>books</td>
-                      <td>1G</td>
-                      <td>21.3%</td>
-                      <td>共享数据库独立表</td>
-                      <td class='normalDbStatus'>正常使用</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>cars</td>
-                      <td>5G</td>
-                      <td>0%</td>
-                      <td>独立数据库</td>
-                      <td class='undDbStatus'>申请中</td>
-                    </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -312,4 +390,7 @@
 <!-- EXTRA_STYLE -->
 <style></style>
 </body>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+</script>
 </html>

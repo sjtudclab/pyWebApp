@@ -67,3 +67,39 @@
 .userInfo .inputs .theinput .inputlen {
   width: 260px;
 }
+
+.tenantname {
+  color: #4664F7;
+  cursor: pointer;
+}
+
+.accpetschema {
+  color: #20D200;
+  cursor: pointer;
+}
+
+.denyschema {
+  color: #EA6D6D;
+  cursor: pointer;
+}
+
+.restintr {
+  font-size: 15px;
+  font-family: monospace;
+  padding: 24px;
+}
+
+.restkind {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  color: #6664EF;
+  font-family: sans-serif;
+}
+
+.restinfo {
+  font-size: 14px;
+  margin-left: 16px;
+  font-family: monospace;
+  color: #CE2323;
+}

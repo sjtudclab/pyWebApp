@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html ng-app="adminApp" lang="en">
+<head id="th_head">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <script src="../../js/jslib/angularlib/angular.js"></script>
+    <script src="../../js/jslib/ngDialog.js"></script>
+    <script src="../../js/jslib/ngStorage.js"></script>
+    <script src="../../js/adminjs/adminApp.js"></script>
+
+    <script src="../../js/jslib/jquery-2.1.4.min.js"></script>
+    <script src="../../js/jslib/bootstrap-3.3.6.min.js"></script>
+    <script src="../../js/jslib/bootstrap-datetimepicker.js"></script>
+
+    <link href="../../css/csslib/bootstrap-3.3.6.min.css" rel="stylesheet"/>
+    <link href="../../css/csslib/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+
+    <link href="../../css/csslib/home.css" rel="stylesheet">
+    <link href="../../css/tenantcss/tenantmain.css" rel="stylesheet">
+    <link href="../../css/csslib/ngDialog.css" rel="stylesheet" >
+    <!-- 其他script或style请写在body最后面 -->
+
+
+    <title></title>
+</head>
+<body ng-controller="adminMainCtrl">
+<!-- NAVIGATION -->
+<nav id="th_navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">租户数据库管理员系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a href="" >首页</a></li>
+                <li><a href="">登出</a></li>
+                <li><a href="">设置</a></li>
+                <li><a href="">信息</a></li>
+                <li><a href="">帮助</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<div id="th_content" class="container-fluid">
+    <div class="row">
+        <!--SIDE_BAR-->
+        <div id="th_sidebar" class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(1)'><a href="">租户管理</a></h4></li>
+                <!--<li><a href="#" >其他<span class="sr-only">(current)</span></a></li>-->
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(2)'><a href="">待批准数据库</a></h4></li>
+            </ul>
+
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(3)'><a href="">个人信息修改</a></h4></li>
+            </ul>
+
+            <ul class="nav nav-sidebar">
+                <li><h4 class="sub-header" ng-click='showModel(4)'><a href="">数据库监控</a></h4></li>
+            </ul>
+
+        </div>
+
+        <!--CONTENT_CONTAINER-->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!-- BEGIN************************请在此处添加内容************************ -->
+          <div ng-show='checkAuth' >
+            <div class="userInfo">
+              <span class='userTitle'>租户信息</span>
+              <hr>
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">数据库内容信息权限查看</div>
+                <div class="panel-body">
+                  <p>以下为租户所拥有的各数据库设置</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table" style="width:100%; margin-left:0px;">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>名称</th>
+                      <th>容量</th>
+                      <th>申请时间</th>
+                      <th>到期时间</th>
+                      <th>隔离策略</th>
+                      <th>状态</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr ng-repeat='sche in schemas'>
+                      <th scope="row">{{sche.k}}</th>
+                      <td>{{sche.name}}</td>
+                      <td>{{sche.capacity}}GB</td>
+                      <td>{{sche.regtime}}</td>
+                      <td>{{sche.endtime}}</td>
+                      <td>{{sche.isolation}}</td>
+                      <td class='normalDbStatus'>{{sche.sta}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <span class='userTitle'>数据库信息</span>
+              <hr>
+              <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">数据库内容信息权限查看</div>
+                <div class="panel-body">
+                  <p>以下为租户所拥有的各数据库设置</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table" style="width:100%; margin-left:0px;">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>名称</th>
+                      <th>容量</th>
+                      <th>申请时间</th>
+                      <th>到期时间</th>
+                      <th>隔离策略</th>
+                      <th>状态</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr ng-repeat='sche in schemas'>
+                      <th scope="row">{{sche.k}}</th>
+                      <td>{{sche.name}}</td>
+                      <td>{{sche.capacity}}GB</td>
+                      <td>{{sche.regtime}}</td>
+                      <td>{{sche.endtime}}</td>
+                      <td>{{sche.isolation}}</td>
+                      <td class='normalDbStatus'>{{sche.sta}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+
+
+            <!--<h2 class="sub-header">二级模块</h2>-->
+        <!-- END************************请在此处添加内容************************ -->
+        </div><!-- content_container -->
+
+
+    </div><!--row-->
+</div><!-- /.container -->
+
+<!-- FOOTER -->
+<div></div>
+<!-- EXTRA_SCRIPT -->
+<script></script>
+<!-- EXTRA_STYLE -->
+<style></style>
+</body>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+</script>
+</html>
